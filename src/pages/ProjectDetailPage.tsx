@@ -1,6 +1,6 @@
-import { useParams, Link, useLocation } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { projects } from '../data/projects'
 import SmokeCanvas from '../components/ui/SmokeCanvas'
 
@@ -87,10 +87,17 @@ export default function ProjectDetailPage() {
   const project = projects.find(p => p.id === id)
   const [scrollX, setScrollX] = useState(0)
   const lastScrollRef = useRef(0)
+  const lastUpdateRef = useRef(0)
   const titleSectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    let rafId: number | null = null
+
     const handleScroll = () => {
+      const now = Date.now()
+      // Throttle to 60fps (~16ms)
+      if (now - lastUpdateRef.current < 16) return
+
       const titleSection = titleSectionRef.current
       if (!titleSection) return
 
@@ -102,11 +109,15 @@ export default function ProjectDetailPage() {
         // Move right on scroll down (positive), left on scroll up (negative)
         setScrollX((prev) => prev + scrollDelta * 0.3)
         lastScrollRef.current = window.scrollY
+        lastUpdateRef.current = now
       }
     }
 
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [])
 
   if (!project) {
@@ -136,47 +147,40 @@ export default function ProjectDetailPage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          gap: '2rem',
+          gap: '0',
+          position: 'relative',
         }}
       >
         {/* Row 1: outline text — drifts up + scrolls left (slower) — BACK LAYER */}
-        <MarqueeRow
-          text={project.title}
-          outline
-          speed={90}
-          drift="up"
-          driftDelay={-3.5}
-          rotate={5}
-          enterFrom={0}
-          enterDelay={0.25}
-          scrollX={scrollX}
-        />
+        <div style={{ marginBottom: '-3rem', marginLeft: '-15%' }}>
+          <MarqueeRow
+            text={project.title}
+            outline
+            speed={90}
+            drift="up"
+            driftDelay={-3.5}
+            rotate={5}
+            enterFrom={0}
+            enterDelay={0.25}
+            scrollX={scrollX}
+          />
+        </div>
 
         {/* Row 2: solid white text — drifts down + scrolls left — FRONT LAYER */}
-        <MarqueeRow
-          text={project.title}
-          speed={65}
-          drift="down"
-          driftDelay={0}
-          rotate={-5}
-          enterFrom={0}
-          enterDelay={0.1}
-          scrollX={scrollX}
-        />
+        <div style={{ marginTop: '-3rem', marginLeft: '-15%' }}>
+          <MarqueeRow
+            text={project.title}
+            speed={65}
+            drift="down"
+            driftDelay={0}
+            rotate={-5}
+            enterFrom={0}
+            enterDelay={0.1}
+            scrollX={scrollX}
+          />
+        </div>
       </div>
 
-      {/* ── Full-bleed photo with smoke effect ────────────────────────────────────────── */}
-      <motion.div
-        layoutId={`project-image-${project.id}`}
-        transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-        style={{ height: '56vh', width: '100vw', overflow: 'hidden', marginLeft: 'calc(-50vw + 50%)' }}
-      >
-        <SmokeCanvas
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full"
-        />
-      </motion.div>
 
       {/* ── Project info ────────────────────────────────────────────── */}
       <div className="px-8 md:px-16 py-16">
