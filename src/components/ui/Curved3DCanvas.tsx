@@ -9,7 +9,6 @@ interface Curved3DCanvasProps {
 
 export default function Curved3DCanvas({
   src,
-  alt,
   className = '',
   curvatureRadius = 1500,
 }: Curved3DCanvasProps) {

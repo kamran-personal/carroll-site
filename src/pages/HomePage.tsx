@@ -9,13 +9,11 @@ import EarthSphere from '../components/ui/EarthSphere'
 import { services } from '../data/services'
 
 function CheckOutOurWork() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [distance, setDistance] = useState(Infinity)
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY })
 
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect()
