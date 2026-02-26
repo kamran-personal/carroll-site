@@ -1,8 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { projects } from '../data/projects'
-import SmokeCanvas from '../components/ui/SmokeCanvas'
 
 const REPS = 10
 

@@ -6,16 +6,135 @@ import FadeInSection from '../components/ui/FadeInSection'
 import ServiceCard from '../components/ui/ServiceCard'
 import DraggableCube from '../components/ui/DraggableCube'
 import EarthSphere from '../components/ui/EarthSphere'
+import PixelCanvas from '../components/ui/PixelCanvas'
 import { services } from '../data/services'
+import { projects } from '../data/projects'
+
+function WorkProject({ project, index }: { project: typeof projects[0]; index: number }) {
+  const glowRef = useRef<HTMLDivElement>(null)
+
+  const onFrameMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!glowRef.current) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const mask = `radial-gradient(ellipse 120px 80px at ${x}px ${y}px, black 0%, transparent 100%)`
+    glowRef.current.style.maskImage = mask
+    glowRef.current.style.webkitMaskImage = mask
+    glowRef.current.style.opacity = '1'
+  }
+
+  const onFrameMouseLeave = () => {
+    if (glowRef.current) glowRef.current.style.opacity = '0'
+  }
+
+  return (
+    <FadeInSection delay={index * 0.05}>
+      <div style={{ width: '70vw', margin: '0 auto' }}>
+        {/* Labels row */}
+        <div className="flex justify-between items-baseline mb-3">
+          <span className="text-[11px] font-medium text-white/35 tracking-[0.25em] uppercase">
+            {String(index + 1).padStart(2, '0')} — {String(projects.length).padStart(2, '0')}
+          </span>
+          <span className="text-[11px] font-medium text-white/35 tracking-[0.25em] uppercase">
+            {project.title}
+          </span>
+        </div>
+
+        {/* Image frame */}
+        <motion.div
+          layoutId={`project-image-${project.id}`}
+          className="relative w-full"
+          style={{ aspectRatio: '16 / 9', overflow: 'hidden', borderRadius: '0.5rem' }}
+          transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+          onMouseMove={onFrameMouseMove}
+          onMouseLeave={onFrameMouseLeave}
+        >
+          {/* Pixel displacement canvas */}
+          <PixelCanvas
+            src={project.image}
+            alt={project.title}
+            className="absolute inset-0 w-full h-full"
+          />
+
+          {/* Overlays */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: [
+                'linear-gradient(to top,    rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.12) 40%, transparent 65%)',
+                'linear-gradient(to bottom, rgba(0,0,0,0.40) 0%, transparent 40%)',
+                'linear-gradient(to right,  rgba(0,0,0,0.40) 0%, transparent 40%)',
+                'linear-gradient(to left,   rgba(0,0,0,0.40) 0%, transparent 40%)',
+              ].join(', '),
+            }}
+          />
+          <div className="photo-grain pointer-events-none" aria-hidden="true" />
+
+          {/* Title */}
+          <div className="absolute bottom-0 left-0 right-0 pb-8 z-10 flex justify-center px-4 pointer-events-none">
+            <h3
+              className="text-white uppercase text-center leading-[0.88]"
+              style={{
+                fontFamily: 'var(--font-impact)',
+                fontWeight: 900,
+                fontSize: 'clamp(1.2rem, 3.5vw, 4rem)',
+                letterSpacing: '0.08em',
+              }}
+            >
+              {project.title}
+            </h3>
+          </div>
+
+          {/* Glow layer */}
+          <div
+            ref={glowRef}
+            className="absolute bottom-0 left-0 right-0 pb-8 z-20 flex justify-center px-4 pointer-events-none"
+            style={{ opacity: 0, transition: 'opacity 0.15s' }}
+          >
+            <h3
+              className="uppercase text-center leading-[0.88]"
+              style={{
+                fontFamily: 'var(--font-impact)',
+                fontWeight: 900,
+                fontSize: 'clamp(1.2rem, 3.5vw, 4rem)',
+                letterSpacing: '0.08em',
+                color: 'rgba(255,255,255,1)',
+                textShadow: '0 0 8px rgba(255,255,255,1), 0 0 24px rgba(255,255,255,0.9), 0 0 60px rgba(255,255,255,0.5)',
+                filter: 'brightness(1.4)',
+              }}
+            >
+              {project.title}
+            </h3>
+          </div>
+        </motion.div>
+
+        {/* View Project button */}
+        <div className="flex justify-center relative z-10" style={{ marginTop: '-1.4rem' }}>
+          <Link
+            to={`/portfolio/${project.id}`}
+            className="group/btn relative inline-flex items-center gap-3 border-2 border-white/65 rounded-full px-14 py-[1.1rem] text-sm font-medium uppercase tracking-[0.2em] text-white overflow-hidden transition-colors duration-300 hover:border-transparent"
+          >
+            <span className="absolute inset-0 bg-accent-green rounded-full translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
+            <span className="relative z-10 group-hover/btn:text-bg transition-colors duration-300">
+              View Project
+            </span>
+            <span className="relative z-10 group-hover/btn:text-bg transition-colors duration-300 text-base leading-none">
+              ↗
+            </span>
+          </Link>
+        </div>
+      </div>
+    </FadeInSection>
+  )
+}
 
 function CheckOutOurWork() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [distance, setDistance] = useState(Infinity)
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY })
 
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect()
@@ -180,6 +299,28 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Work ===== */}
+      <section id="work" className="py-32 px-6 md:px-10 bg-black">
+        <div className="max-w-7xl mx-auto">
+          <FadeInSection>
+            <span className="text-xs uppercase tracking-[0.3em] text-accent-green font-semibold">
+              Our Work
+            </span>
+          </FadeInSection>
+          <FadeInSection delay={0.1}>
+            <h2 className="font-display text-5xl md:text-6xl font-bold mt-4 mb-20">
+              Selected projects
+            </h2>
+          </FadeInSection>
+
+          <div className="flex flex-col gap-24">
+            {projects.map((project, i) => (
+              <WorkProject key={project.id} project={project} index={i} />
+            ))}
           </div>
         </div>
       </section>

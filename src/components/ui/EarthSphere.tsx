@@ -32,21 +32,6 @@ const fragmentShader = `
   }
 `
 
-// ── Atmosphere Fresnel shader ───────────────────────────────────────────────
-const atmoVert = `
-  varying vec3 vNormal;
-  void main() {
-    vNormal = normalize(normalMatrix * normal);
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`
-const atmoFrag = `
-  varying vec3 vNormal;
-  void main() {
-    float intensity = pow(0.65 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0);
-    gl_FragColor = vec4(0.2, 0.5, 1.0, 1.0) * intensity;
-  }
-`
 
 // ── Inner scene components ──────────────────────────────────────────────────
 function EarthMesh({ sunDirRef }: { sunDirRef: React.MutableRefObject<THREE.Vector3> }) {

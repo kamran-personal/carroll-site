@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
-  { label: 'Work', to: '/portfolio' },
+  { label: 'Work', to: '/#work' },
   { label: 'About', to: '/about' },
 ]
 
@@ -75,7 +75,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setIsMenuOpen(false)
-  }, [location.pathname])
+  }, [location.pathname, location.hash])
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : ''
@@ -102,28 +102,33 @@ export default function Navbar() {
 
           {/* Desktop nav — evenly spaced */}
           <div className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className="relative group"
-              >
-                <span className={`text-sm font-medium transition-colors duration-300 ${
-                  location.pathname === link.to
-                    ? 'text-text'
-                    : 'text-text-muted hover:text-text'
-                }`}>
-                  {link.label}
-                </span>
-                {location.pathname === link.to && (
-                  <motion.span
-                    layoutId="nav-indicator"
-                    className="absolute -bottom-1 left-0 right-0 h-px bg-accent-green"
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = link.to === '/#work'
+                ? location.pathname === '/' && location.hash === '#work'
+                : location.pathname === link.to
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="relative group"
+                >
+                  <span className={`text-sm font-medium transition-colors duration-300 ${
+                    isActive
+                      ? 'text-text'
+                      : 'text-text-muted hover:text-text'
+                  }`}>
+                    {link.label}
+                  </span>
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-indicator"
+                      className="absolute -bottom-1 left-0 right-0 h-px bg-accent-green"
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+                </Link>
+              )
+            })}
 
             <Link
               to="/contact"
