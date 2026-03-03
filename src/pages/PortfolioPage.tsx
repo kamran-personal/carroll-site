@@ -189,7 +189,7 @@ export default function PortfolioPage() {
       {/* Available badge — fixed bottom-left */}
       <div className="fixed bottom-8 left-8 z-50 flex items-start gap-2.5">
         <span className="mt-[3px] w-2 h-2 rounded-full bg-accent-green flex-shrink-0 animate-dot-blink" />
-        <span className="text-[11px] font-semibold text-white uppercase tracking-[0.15em] leading-[1.4]">
+        <span className="text-[13px] font-semibold text-white uppercase tracking-[0.15em] leading-[1.4]">
           Currently Available<br />For New Projects
         </span>
       </div>

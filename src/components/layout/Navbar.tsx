@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
-  { label: 'Work', to: '/#work' },
+  { label: 'Work', to: '/portfolio' },
   { label: 'About', to: '/about' },
 ]
 
@@ -103,9 +103,7 @@ export default function Navbar() {
           {/* Desktop nav — evenly spaced */}
           <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => {
-              const isActive = link.to === '/#work'
-                ? location.pathname === '/' && location.hash === '#work'
-                : location.pathname === link.to
+              const isActive = location.pathname === link.to || location.pathname.startsWith(link.to + '/')
               return (
                 <Link
                   key={link.to}

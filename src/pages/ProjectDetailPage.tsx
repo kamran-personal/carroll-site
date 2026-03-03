@@ -220,6 +220,166 @@ export default function ProjectDetailPage() {
         </div>
       </div>
 
+      {/* ── Client Description ────────────────────────────────────────── */}
+      {project.clientDescription && (
+        <div className="px-8 md:px-16 py-16 border-t border-white/10">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-white mb-8" style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 800,
+              fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)',
+            }}>
+              About the Client
+            </h2>
+            <p className="text-white/65 text-base md:text-lg leading-relaxed">
+              {project.clientDescription}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* ── Challenges ────────────────────────────────────────────────── */}
+      {project.challenges && project.challenges.length > 0 && (
+        <div className="px-8 md:px-16 py-16 border-t border-white/10">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-white mb-12" style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 800,
+              fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)',
+            }}>
+              The Challenges
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {project.challenges.map((challenge, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  className="p-6 border-l-4 border-accent-green bg-white/2 rounded"
+                >
+                  <p className="text-white/65 leading-relaxed">{challenge}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── The Original Design ────────────────────────────────────────── */}
+      {(project.id === 'ember-restaurant' || project.id === 'swift-towing' || project.id === 'peak-roofing') && (
+        <div className="px-8 md:px-16 py-16 border-t border-white/10">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-white mb-8" style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 800,
+              fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)',
+            }}>
+              The Original Design
+            </h2>
+            <p className="text-white/55 text-base md:text-lg leading-relaxed mb-8">
+              {project.id === 'ember-restaurant'
+                ? 'This is the original Ember Restaurant website as it existed before our redesign. Notice the early 2000s design patterns, outdated typography, and poor mobile responsiveness.'
+                : project.id === 'swift-towing'
+                ? 'This is the original Swift Towing website as it existed before our redesign. Notice the basic layout, limited interactivity, and poor mobile experience.'
+                : 'This is the original Peak Roofing website as it existed before our redesign. Notice the text-heavy layout and lack of visual project examples.'}
+            </p>
+            <div className="bg-white/5 rounded-lg overflow-hidden border border-white/10">
+              <iframe
+                src={
+                  project.id === 'ember-restaurant'
+                    ? '/ember.html'
+                    : project.id === 'swift-towing'
+                    ? '/swift-towing-original.html'
+                    : '/roofing-original.html'
+                }
+                title={`Original ${project.title} Website`}
+                className="w-full"
+                style={{
+                  height: '600px',
+                  border: 'none',
+                  display: 'block',
+                }}
+              />
+            </div>
+            <p className="text-white/35 text-sm mt-4 text-center">
+              Original design showcasing the challenges we identified and addressed
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* ── Insights ────────────────────────────────────────────────────── */}
+      {project.insights && project.insights.length > 0 && (
+        <div className="px-8 md:px-16 py-16 border-t border-white/10">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-white mb-12" style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 800,
+              fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)',
+            }}>
+              Our Insights
+            </h2>
+            <div className="space-y-6">
+              {project.insights.map((insight, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  className="flex gap-6 p-6 border border-white/10 rounded hover:border-accent-green/30 transition-colors"
+                >
+                  <div className="flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-accent-green/20 flex items-center justify-center">
+                      <span className="text-accent-green font-bold text-sm">{i + 1}</span>
+                    </div>
+                  </div>
+                  <p className="text-white/65 leading-relaxed pt-1">{insight}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── What We Built ────────────────────────────────────────────────── */}
+      {(project.id === 'ember-restaurant' || project.id === 'swift-towing' || project.id === 'peak-roofing') && (
+        <div className="px-8 md:px-16 py-16 border-t border-white/10">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-white mb-8" style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 800,
+              fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)',
+            }}>
+              What We Built
+            </h2>
+            <div className="bg-white/5 rounded-lg overflow-hidden border border-white/10">
+              <iframe
+                src={
+                  project.id === 'ember-restaurant'
+                    ? '/ember-landing.html'
+                    : project.id === 'swift-towing'
+                    ? '/swift-towing-landing.html'
+                    : '/peak-roofing-landing.html'
+                }
+                title={`${project.title} Landing Page Preview`}
+                className="w-full"
+                style={{
+                  height: '700px',
+                  border: 'none',
+                  display: 'block',
+                }}
+              />
+            </div>
+            <p className="text-white/35 text-sm mt-4 text-center">
+              This is a preview of the landing page we designed and built
+            </p>
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }

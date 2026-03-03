@@ -6,81 +6,78 @@ export interface Project {
   description: string
   image: string
   year: string
+  clientDescription?: string
+  challenges?: string[]
+  insights?: string[]
 }
 
 export const projects: Project[] = [
   {
-    id: 'ember-table',
-    title: 'The Ember Table',
-    category: 'Restaurant',
-    categorySlug: 'restaurants',
-    description: 'A refined digital presence for an upscale dining experience, featuring online reservations and a seasonal menu showcase.',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=900&fit=crop',
+    id: 'swift-towing',
+    title: 'Swift Towing',
+    category: 'Services',
+    categorySlug: 'services',
+    description: 'A professional towing company website showcasing their reliability and service offerings with easy quote requests.',
+    image: '/images/moving.jpg',
     year: '2025',
+    clientDescription: 'Swift Towing is a 24/7 emergency towing and roadside assistance service operating across the metro area with a fleet of 15+ vehicles and a growing client base.',
+    challenges: [
+      'Outdated website that didn\'t reflect their modern, reliable brand',
+      'No online booking system - customers had to call for quotes',
+      'Poor mobile experience losing potential customers on the go',
+      'Unclear service areas and pricing information scattered across pages'
+    ],
+    insights: [
+      'Customers needed immediate, frictionless access to booking from any device',
+      'Service response times and availability were key trust factors',
+      'Local SEO was critical for capturing emergency calls in their coverage area',
+      'Visual portfolio of past jobs built confidence in their expertise'
+    ]
   },
   {
-    id: 'maison-noir',
-    title: 'Maison Noir',
-    category: 'Retail',
-    categorySlug: 'retail',
-    description: 'An elegant e-commerce platform for a contemporary fashion boutique, blending editorial aesthetics with seamless shopping.',
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=900&fit=crop',
-    year: '2025',
-  },
-  {
-    id: 'strand-studio',
-    title: 'Strand Studio',
-    category: 'Wellness',
-    categorySlug: 'wellness',
-    description: 'A sleek booking-first website for a premium hair salon, designed to reflect their artistry and attention to detail.',
-    image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=900&fit=crop',
+    id: 'peak-roofing',
+    title: 'Peak Roofing',
+    category: 'Services',
+    categorySlug: 'services',
+    description: 'A roofing company website highlighting expertise, completed projects, and maintenance services.',
+    image: '/images/roofing.jpg',
     year: '2024',
+    clientDescription: 'Peak Roofing specializes in residential and commercial roof installation, repair, and maintenance with over 500 completed projects and industry certifications.',
+    challenges: [
+      'Previous site was very text-heavy with no visual project examples',
+      'Difficult to explain complex roofing concepts to average homeowner',
+      'High competition from national roofing chains with bigger marketing budgets',
+      'Seasonal business required better lead capture and inquiry management'
+    ],
+    insights: [
+      'High-quality project photography was essential to showcase craftsmanship',
+      'Educational content about roof types, materials, and maintenance built authority',
+      'Customer reviews and certifications were major trust indicators',
+      'Clear ROI messaging about roof longevity and energy efficiency resonated'
+    ]
   },
   {
-    id: 'forge-athletics',
-    title: 'Forge Athletics',
-    category: 'Fitness',
-    categorySlug: 'fitness',
-    description: 'A bold, high-energy website for a boutique fitness studio, with class scheduling and membership management.',
-    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=900&fit=crop',
-    year: '2024',
-  },
-  {
-    id: 'ritual-coffee',
-    title: 'Ritual Coffee',
+    id: 'ember-restaurant',
+    title: 'Ember',
     category: 'Restaurant',
-    categorySlug: 'restaurants',
-    description: 'A warm, inviting web presence for a specialty coffee roaster, featuring their story, sourcing philosophy, and online shop.',
-    image: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&h=900&fit=crop',
+    categorySlug: 'restaurant',
+    description: 'An upscale restaurant website featuring menu highlights, reservation system, and chef\'s specials.',
+    image: '/images/ember-chicken-wings.webp',
     year: '2024',
-  },
-  {
-    id: 'crumb-craft',
-    title: 'Crumb & Craft',
-    category: 'Restaurant',
-    categorySlug: 'restaurants',
-    description: 'A charming digital storefront for an artisan bakery, showcasing daily selections with mouth-watering photography.',
-    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1200&h=900&fit=crop',
-    year: '2023',
-  },
-  {
-    id: 'sage-wellness',
-    title: 'Sage Wellness',
-    category: 'Wellness',
-    categorySlug: 'wellness',
-    description: 'A serene, calming website for a holistic wellness center, with integrated booking and practitioner profiles.',
-    image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=900&fit=crop',
-    year: '2023',
-  },
-  {
-    id: 'lumen-photography',
-    title: 'Lumen Photography',
-    category: 'Creative',
-    categorySlug: 'creative',
-    description: 'A minimal, image-forward portfolio for a commercial photographer, letting the work speak entirely for itself.',
-    image: 'https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=1200&h=900&fit=crop',
-    year: '2023',
+    clientDescription: 'Ember is an upscale casual dining restaurant known for farm-to-table cuisine and craft cocktails, with a focus on creating memorable dining experiences for the local community.',
+    challenges: [
+      'Old static website didn\'t capture the ambiance or quality of their food',
+      'Reservation system required customers to call, missed online bookings',
+      'Limited showcase of seasonal menus and chef specials',
+      'Social media engagement was high but not driving traffic to their site'
+    ],
+    insights: [
+      'Visual storytelling through food photography was paramount to attracting diners',
+      'Online reservations needed to be frictionless to capture late-night planners',
+      'Chef profiles and sourcing stories differentiated them from chains',
+      'Integration with social feeds brought their active community engagement to the website'
+    ]
   },
 ]
 
-export const categories = ['All', 'Restaurants', 'Retail', 'Wellness', 'Fitness', 'Creative']
+export const categories = ['All', 'Services', 'Restaurant', 'Fitness']
