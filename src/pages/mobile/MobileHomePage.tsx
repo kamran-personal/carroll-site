@@ -1,14 +1,11 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
-import * as THREE from 'three'
 import FadeInSection from '../../components/ui/FadeInSection'
-import ServiceCard from '../../components/ui/ServiceCard'
 import DraggableCube from '../../components/ui/DraggableCube'
 import { services } from '../../data/services'
 
 export default function MobileHomePage() {
-  const sunDirRef = useRef(new THREE.Vector3(1.5, 0.5, 1.0).normalize())
   const [scrollRotation, setScrollRotation] = useState(0)
   const lastScrollRef = useRef(0)
 
