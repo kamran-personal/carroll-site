@@ -76,15 +76,17 @@ export default function WebContactForm() {
         </div>
 
         {/* Row 3: Company */}
-        <div>
-          <label className="text-xs uppercase tracking-widest font-semibold text-text-muted block mb-3">
-            Company
-          </label>
-          <input
-            type="text"
-            placeholder="Your company"
-            className="w-full bg-transparent border-b border-border py-3 min-h-[44px] text-text placeholder:text-text-dim focus:border-accent-green focus:outline-none transition-colors duration-300"
-          />
+        <div className="grid grid-cols-2 gap-16">
+          <div>
+            <label className="text-xs uppercase tracking-widest font-semibold text-text-muted block mb-3">
+              Company
+            </label>
+            <input
+              type="text"
+              placeholder="Your company"
+              className="w-full bg-transparent border-b border-border py-3 min-h-[44px] text-text placeholder:text-text-dim focus:border-accent-green focus:outline-none transition-colors duration-300"
+            />
+          </div>
         </div>
 
         <Button>Send Inquiry</Button>
