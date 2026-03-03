@@ -3,20 +3,87 @@ import { useRef, useState, useEffect } from 'react'
 export default function DraggableCube({ size = 110 }: { size?: number }) {
   const [rotX, setRotX] = useState(20)
   const [rotY, setRotY] = useState(-30)
+  const [isDragging, setIsDragging] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const rafRef = useRef<number | null>(null)
   const targetRot = useRef({ x: 20, y: -30 })
+  const dragStart = useRef({ x: 0, y: 0 })
+  const dragRotStart = useRef({ x: 0, y: 0 })
+  const cubeRef = useRef<HTMLDivElement>(null)
 
+  // Detect mobile
   useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      // Map cursor position to rotation: center of screen = 0,0
-      const nx = (e.clientX / window.innerWidth) * 2 - 1   // -1 to 1
-      const ny = (e.clientY / window.innerHeight) * 2 - 1  // -1 to 1
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
-      // Rotate up to ±70deg based on cursor position
+  // Dragging for mobile
+  useEffect(() => {
+    if (!isMobile || !cubeRef.current) return
+
+    const handleMouseDown = (e: MouseEvent | TouchEvent) => {
+      setIsDragging(true)
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
+      dragStart.current = { x: clientX, y: clientY }
+      dragRotStart.current = { x: targetRot.current.x, y: targetRot.current.y }
+    }
+
+    const handleMouseMove = (e: MouseEvent | TouchEvent) => {
+      if (!isDragging) return
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
+
+      const deltaX = clientX - dragStart.current.x
+      const deltaY = clientY - dragStart.current.y
+
       targetRot.current = {
-        x: -ny * 70,
-        y: nx * 70,
+        x: dragRotStart.current.x + deltaY * 0.5,
+        y: dragRotStart.current.y + deltaX * 0.5,
       }
+    }
+
+    const handleMouseUp = () => {
+      setIsDragging(false)
+    }
+
+    const cube = cubeRef.current
+    cube.addEventListener('mousedown', handleMouseDown as EventListener)
+    cube.addEventListener('touchstart', handleMouseDown as EventListener)
+    document.addEventListener('mousemove', handleMouseMove as EventListener)
+    document.addEventListener('touchmove', handleMouseMove as EventListener)
+    document.addEventListener('mouseup', handleMouseUp)
+    document.addEventListener('touchend', handleMouseUp)
+
+    return () => {
+      cube.removeEventListener('mousedown', handleMouseDown as EventListener)
+      cube.removeEventListener('touchstart', handleMouseDown as EventListener)
+      document.removeEventListener('mousemove', handleMouseMove as EventListener)
+      document.removeEventListener('touchmove', handleMouseMove as EventListener)
+      document.removeEventListener('mouseup', handleMouseUp)
+      document.removeEventListener('touchend', handleMouseUp)
+    }
+  }, [isMobile, isDragging])
+
+  // Desktop mouse tracking or mobile animation loop
+  useEffect(() => {
+    let onMouseMove: ((e: MouseEvent) => void) | null = null
+
+    if (!isMobile) {
+      onMouseMove = (e: MouseEvent) => {
+        // Map cursor position to rotation: center of screen = 0,0
+        const nx = (e.clientX / window.innerWidth) * 2 - 1
+        const ny = (e.clientY / window.innerHeight) * 2 - 1
+
+        // Rotate up to ±70deg based on cursor position
+        targetRot.current = {
+          x: -ny * 70,
+          y: nx * 70,
+        }
+      }
+      window.addEventListener('mousemove', onMouseMove)
     }
 
     // Smooth lerp loop
@@ -32,14 +99,13 @@ export default function DraggableCube({ size = 110 }: { size?: number }) {
       rafRef.current = requestAnimationFrame(animate)
     }
 
-    window.addEventListener('mousemove', onMouseMove)
     rafRef.current = requestAnimationFrame(animate)
 
     return () => {
-      window.removeEventListener('mousemove', onMouseMove)
+      if (onMouseMove) window.removeEventListener('mousemove', onMouseMove)
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
     }
-  }, [])
+  }, [isMobile])
 
   const half = size / 2
 
@@ -59,7 +125,16 @@ export default function DraggableCube({ size = 110 }: { size?: number }) {
   })
 
   return (
-    <div style={{ width: `${size}px`, height: `${size}px`, perspective: `${size * 5}px` }}>
+    <div
+      ref={cubeRef}
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        perspective: `${size * 5}px`,
+        cursor: isMobile ? (isDragging ? 'grabbing' : 'grab') : 'auto',
+        userSelect: 'none',
+      }}
+    >
       <div
         style={{
           width: '100%',

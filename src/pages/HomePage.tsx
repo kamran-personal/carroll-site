@@ -98,17 +98,31 @@ export default function HomePage() {
           <DraggableCube size={isMobile ? 150 : 300} />
         </div>
 
-        {/* Headline text — split layout */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 px-6 md:px-10 pb-8 md:pb-14">
-          <div className="max-w-[100rem] mx-auto">
-            {/* Line 1: BUILT left, TO BE right */}
-            <div className="flex justify-between items-end leading-[0.85]">
+        {/* Headline text — responsive layout */}
+        <div className="absolute bottom-0 left-0 right-0 z-10 px-6 md:px-10 pb-8 md:pb-14 h-full flex flex-col items-center justify-center md:justify-end">
+          <div className="w-full max-w-[100rem] mx-auto">
+            {/* Mobile: BUILT at top */}
+            <div className="flex md:hidden justify-center mb-12 leading-[0.85]">
               <div className="overflow-hidden">
                 <motion.span
                   initial={{ y: '110%' }}
                   animate={{ y: '0%' }}
                   transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="block font-display text-[10vw] md:text-[8vw] font-extrabold text-white tracking-[-0.02em]"
+                  className="block font-display text-[10vw] font-extrabold text-white tracking-[-0.02em]"
+                >
+                  BUILT
+                </motion.span>
+              </div>
+            </div>
+
+            {/* Desktop: BUILT left, TO BE right */}
+            <div className="hidden md:flex justify-between items-end leading-[0.85]">
+              <div className="overflow-hidden">
+                <motion.span
+                  initial={{ y: '110%' }}
+                  animate={{ y: '0%' }}
+                  transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="block font-display text-[8vw] font-extrabold text-white tracking-[-0.02em]"
                 >
                   BUILT
                 </motion.span>
@@ -118,20 +132,45 @@ export default function HomePage() {
                   initial={{ y: '110%' }}
                   animate={{ y: '0%' }}
                   transition={{ duration: 0.9, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                  className="block font-display text-[10vw] md:text-[8vw] font-extrabold text-white tracking-[-0.02em]"
+                  className="block font-display text-[8vw] font-extrabold text-white tracking-[-0.02em]"
                 >
                   TO BE
                 </motion.span>
               </div>
             </div>
-            {/* Line 2: NOTICED centered */}
-            <div className="flex justify-center leading-[0.85] -mt-[1vw]">
+
+            {/* Desktop: NOTICED centered */}
+            <div className="hidden md:flex justify-center leading-[0.85] -mt-[1vw]">
               <div className="overflow-hidden">
                 <motion.span
                   initial={{ y: '110%' }}
                   animate={{ y: '0%' }}
                   transition={{ duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="block font-display text-[10vw] md:text-[8vw] font-extrabold text-white tracking-[-0.02em]"
+                  className="block font-display text-[8vw] font-extrabold text-white tracking-[-0.02em]"
+                >
+                  NOTICED
+                </motion.span>
+              </div>
+            </div>
+
+            {/* Mobile: TO BE NOTICED below cube */}
+            <div className="flex md:hidden flex-col items-center gap-2 leading-[0.85] mt-12">
+              <div className="overflow-hidden">
+                <motion.span
+                  initial={{ y: '110%' }}
+                  animate={{ y: '0%' }}
+                  transition={{ duration: 0.9, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  className="block font-display text-[10vw] font-extrabold text-white tracking-[-0.02em]"
+                >
+                  TO BE
+                </motion.span>
+              </div>
+              <div className="overflow-hidden">
+                <motion.span
+                  initial={{ y: '110%' }}
+                  animate={{ y: '0%' }}
+                  transition={{ duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="block font-display text-[10vw] font-extrabold text-white tracking-[-0.02em]"
                 >
                   NOTICED
                 </motion.span>
