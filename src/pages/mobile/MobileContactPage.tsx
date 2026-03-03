@@ -38,10 +38,10 @@ export default function MobileContactPage() {
                   Email
                 </h4>
                 <a
-                  href="mailto:hello@neighborhoodstudio.co"
+                  href="mailto:ripley@cohesium.co"
                   className="text-text hover:text-accent-green transition-colors duration-300 text-sm"
                 >
-                  hello@neighborhoodstudio.co
+                  ripley@cohesium.co
                 </a>
               </div>
 
