@@ -31,7 +31,7 @@ function ProjectSection({ project, index, isMobile }: { project: typeof projects
   return (
     <section
       className={`portfolio-snap-section relative flex flex-col items-center justify-center ${isMobile ? 'min-h-screen' : 'h-screen'}`}
-      style={{ paddingTop: isMobile ? '60px' : '80px' }}
+      style={{ paddingTop: isMobile ? '15px' : '80px', paddingBottom: isMobile ? '15px' : '0' }}
     >
       {/* Content wrapper */}
       <div className="relative" style={{ width: contentWidth }}>
@@ -84,8 +84,8 @@ function ProjectSection({ project, index, isMobile }: { project: typeof projects
           />
           <div className="photo-grain pointer-events-none" aria-hidden="true" />
 
-          {/* Title */}
-          <div className="absolute bottom-0 left-0 right-0 pb-8 md:pb-14 z-10 flex justify-center px-4 pointer-events-none">
+          {/* Title — desktop only on mobile */}
+          <div className="absolute bottom-0 left-0 right-0 pb-8 md:pb-14 z-10 flex justify-center px-4 pointer-events-none hidden md:flex">
             <h2
               className="text-white uppercase text-center leading-[0.88]"
               style={{
@@ -262,7 +262,7 @@ export default function PortfolioPage() {
           transform: `translate(calc(-50% + ${bannerPos.x}px), calc(-50% + ${bannerPos.y}px))`,
         } : {
           left: '50%',
-          top: '1rem',
+          top: '2.5rem',
           transform: 'translateX(-50%)',
         }}
       >
@@ -286,10 +286,10 @@ export default function PortfolioPage() {
       ))}
 
       {/* CTA section */}
-      <section className="portfolio-snap-section relative h-screen w-full flex flex-col items-center justify-center gap-8">
+      <section className="portfolio-snap-section relative h-screen w-full flex flex-col items-center justify-center gap-4 md:gap-8">
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isMobile ? undefined : { opacity: 0, y: 30 }}
+          whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true }}
           className="font-display text-5xl md:text-7xl font-bold text-white text-center px-6"
@@ -297,8 +297,8 @@ export default function PortfolioPage() {
           Like what you see?
         </motion.h2>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isMobile ? undefined : { opacity: 0, y: 20 }}
+          whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
           viewport={{ once: true }}
           className="text-text-muted text-lg text-center px-6 max-w-md"
@@ -306,8 +306,8 @@ export default function PortfolioPage() {
           Let&apos;s create something remarkable for your business.
         </motion.p>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isMobile ? undefined : { opacity: 0, y: 20 }}
+          whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
           viewport={{ once: true }}
         >

@@ -40,7 +40,7 @@ export default function ServiceCard({
   return (
     <FadeInSection delay={index * 0.1}>
       <div
-        className="group py-10 flex items-start gap-8 md:gap-16 transition-opacity duration-300"
+        className="group py-5 md:py-10 flex items-start gap-3 md:gap-16 transition-opacity duration-300"
         style={{ opacity: shadowOpacity }}
       >
         <span className="font-display text-5xl md:text-6xl font-bold text-surface-light group-hover:text-accent-green transition-colors duration-500 leading-none shrink-0">

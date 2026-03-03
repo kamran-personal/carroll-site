@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import Button from './Button'
 import FadeInSection from './FadeInSection'
 
-export default function ContactForm() {
+export default function WebContactForm() {
   const [submitted, setSubmitted] = useState(false)
 
   function handleSubmit(e: FormEvent) {
@@ -23,8 +23,9 @@ export default function ContactForm() {
 
   return (
     <FadeInSection>
-      <form onSubmit={handleSubmit} className="space-y-6 md:space-y-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16">
+      <form onSubmit={handleSubmit} className="space-y-16">
+        {/* Row 1: Name + Email */}
+        <div className="grid grid-cols-2 gap-16">
           <div>
             <label className="text-xs uppercase tracking-widest font-semibold text-text-muted block mb-3">
               Name
@@ -49,29 +50,32 @@ export default function ContactForm() {
           </div>
         </div>
 
-        <div>
-          <label className="text-xs uppercase tracking-widest font-semibold text-text-muted block mb-3">
-            Tell us about your project
-          </label>
-          <textarea
-            rows={4}
-            required
-            placeholder="What are you looking to build?"
-            className="w-full bg-transparent border-b border-border py-3 min-h-[44px] text-text placeholder:text-text-dim focus:border-accent-green focus:outline-none transition-colors duration-300 resize-none"
-          />
+        {/* Row 2: Phone + Tell us about your project */}
+        <div className="grid grid-cols-2 gap-16">
+          <div>
+            <label className="text-xs uppercase tracking-widest font-semibold text-text-muted block mb-3">
+              Phone
+            </label>
+            <input
+              type="tel"
+              placeholder="(123) 456-7890"
+              className="w-full bg-transparent border-b border-border py-3 min-h-[44px] text-text placeholder:text-text-dim focus:border-accent-green focus:outline-none transition-colors duration-300"
+            />
+          </div>
+          <div>
+            <label className="text-xs uppercase tracking-widest font-semibold text-text-muted block mb-3">
+              Tell us about your project
+            </label>
+            <textarea
+              rows={4}
+              required
+              placeholder="What are you looking to build?"
+              className="w-full bg-transparent border-b border-border py-3 min-h-[44px] text-text placeholder:text-text-dim focus:border-accent-green focus:outline-none transition-colors duration-300 resize-none"
+            />
+          </div>
         </div>
 
-        <div>
-          <label className="text-xs uppercase tracking-widest font-semibold text-text-muted block mb-3">
-            Phone
-          </label>
-          <input
-            type="tel"
-            placeholder="(123) 456-7890"
-            className="w-full bg-transparent border-b border-border py-3 min-h-[44px] text-text placeholder:text-text-dim focus:border-accent-green focus:outline-none transition-colors duration-300"
-          />
-        </div>
-
+        {/* Row 3: Company */}
         <div>
           <label className="text-xs uppercase tracking-widest font-semibold text-text-muted block mb-3">
             Company

@@ -66,7 +66,7 @@ export default function Footer() {
                 hello@neighborhoodstudio.co
               </a>
               <span>(555) 123-4567</span>
-              <span>Brooklyn, NY</span>
+              <span>Richmond, VA</span>
             </div>
           </div>
         </div>

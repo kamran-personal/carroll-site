@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 
-export default function DraggableCube({ size = 110 }: { size?: number }) {
+export default function DraggableCube({ size = 110, scrollRotY = 0 }: { size?: number; scrollRotY?: number }) {
   const [rotX, setRotX] = useState(20)
   const [rotY, setRotY] = useState(-30)
   const [isDragging, setIsDragging] = useState(false)
@@ -141,7 +141,7 @@ export default function DraggableCube({ size = 110 }: { size?: number }) {
           height: '100%',
           position: 'relative',
           transformStyle: 'preserve-3d',
-          transform: `rotateX(${rotX}deg) rotateY(${rotY}deg)`,
+          transform: `rotateX(${rotX}deg) rotateY(${rotY + scrollRotY}deg)`,
         }}
       >
         <div style={face(`translateZ(${half}px)`, 1.0)} />

@@ -8,9 +8,7 @@ import DraggableCube from '../components/ui/DraggableCube'
 import EarthSphere from '../components/ui/EarthSphere'
 import { services } from '../data/services'
 
-const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-
-function CheckOutOurWork() {
+function CheckOutOurWork({ isMobile }: { isMobile: boolean }) {
   const [distance, setDistance] = useState(Infinity)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -36,7 +34,7 @@ function CheckOutOurWork() {
   const vibrationAmount = vibrationIntensity * vibrationIntensity * 12
 
   return (
-    <div ref={containerRef} className="relative mt-12 md:mt-48 mb-8">
+    <div ref={containerRef} className="relative mt-4 md:mt-48 mb-4 md:mb-8">
       {/* Left arrow pointing right */}
       <svg className="hidden md:block absolute left-[-100px] top-1/2 -translate-y-1/2 w-28 h-28" viewBox="0 0 120 120" style={{ filter: 'drop-shadow(0 0 3px rgba(104, 211, 145, 0.5))' }}>
         <path
@@ -85,6 +83,16 @@ function CheckOutOurWork() {
 
 export default function HomePage() {
   const sunDirRef = useRef(new THREE.Vector3(1.5, 0.5, 1.0).normalize())
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   return (
     <>
@@ -94,7 +102,7 @@ export default function HomePage() {
         <div className="portfolio-grain" aria-hidden="true" />
 
         {/* Gold 3D cube — centered above headline */}
-        <div className="absolute bottom-[48%] left-1/2 -translate-x-1/2 z-10">
+        <div className="absolute left-1/2 -translate-x-1/2 z-10" style={{ bottom: isMobile ? '42%' : '48%' }}>
           <DraggableCube size={isMobile ? 150 : 300} />
         </div>
 
@@ -102,7 +110,7 @@ export default function HomePage() {
         <div className="absolute bottom-0 left-0 right-0 z-10 px-6 md:px-10 pb-8 md:pb-14 h-full flex flex-col items-center justify-center md:justify-end">
           <div className="w-full max-w-[100rem] mx-auto">
             {/* Mobile: BUILT at top */}
-            <div className="flex md:hidden justify-center mb-12 leading-[0.85]">
+            <div className="flex md:hidden justify-center mb-3 md:mb-12 leading-[0.85]">
               <div className="overflow-hidden">
                 <motion.span
                   initial={{ y: '110%' }}
@@ -154,7 +162,7 @@ export default function HomePage() {
             </div>
 
             {/* Mobile: TO BE NOTICED below cube */}
-            <div className="flex md:hidden flex-col items-center gap-2 leading-[0.85] mt-12">
+            <div className="flex md:hidden flex-col items-center gap-2 leading-[0.85] mt-3 md:mt-12">
               <div className="overflow-hidden">
                 <motion.span
                   initial={{ y: '110%' }}
@@ -182,7 +190,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== Services ===== */}
-      <section className="py-32 px-6 md:px-10">
+      <section className="py-14 md:py-32 px-6 md:px-10">
         <div>
           <FadeInSection>
             <span className="text-lg uppercase tracking-[0.3em] text-accent-green font-semibold block text-center">
@@ -190,16 +198,16 @@ export default function HomePage() {
             </span>
           </FadeInSection>
           <FadeInSection delay={0.1}>
-            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mt-4 mb-20 text-center">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mt-2 md:mt-4 mb-8 md:mb-20 text-center">
               We straddle two worlds
             </h2>
           </FadeInSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-start md:min-h-[700px]">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-12 items-start md:min-h-[700px]">
             {/* Left column — Services 1-2 */}
             <div className="md:col-span-4">
               <FadeInSection delay={0.2}>
-                <h3 className="text-2xl md:text-3xl font-display font-bold text-accent-green mb-8">
+                <h3 className="text-2xl md:text-3xl font-display font-bold text-accent-green mb-3 md:mb-8">
                   Brand & Design
                 </h3>
               </FadeInSection>
@@ -217,19 +225,19 @@ export default function HomePage() {
             </div>
 
             {/* Center — Earth sphere */}
-            <div className="md:col-span-4 flex flex-col items-center pt-4">
+            <div className="md:col-span-4 flex flex-col items-center pt-0 md:pt-4">
               <div>
-                <EarthSphere size={420} sunDirRef={sunDirRef} />
+                <EarthSphere size={isMobile ? 260 : 420} sunDirRef={sunDirRef} />
               </div>
               <FadeInSection delay={0.3}>
-                <CheckOutOurWork />
+                <CheckOutOurWork isMobile={isMobile} />
               </FadeInSection>
             </div>
 
             {/* Right column — Services 3-4 */}
             <div className="md:col-span-4">
               <FadeInSection delay={0.2}>
-                <h3 className="text-2xl md:text-3xl font-display font-bold text-accent-green mb-8">
+                <h3 className="text-2xl md:text-3xl font-display font-bold text-accent-green mb-3 md:mb-8">
                   Web Dev & AI Automation
                 </h3>
               </FadeInSection>
