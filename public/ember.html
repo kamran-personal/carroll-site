@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Ember Restaurant - Best Food in Town!</title>
+<style>
+  body {
+    background-color: #2c0a0a;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='none'/%3E%3Cpath d='M30 5c1 8-6 14-6 22s7 14 6 22' stroke='%23441111' stroke-width='0.5' fill='none'/%3E%3Cpath d='M15 10c1 6-4 10-4 16s5 10 4 16' stroke='%23331010' stroke-width='0.4' fill='none'/%3E%3Cpath d='M45 8c1 7-5 12-5 19s6 12 5 19' stroke='%23381010' stroke-width='0.4' fill='none'/%3E%3C/svg%3E");
+    color: #FFD700;
+    font-family: 'Comic Sans MS', 'Papyrus', cursive;
+    margin: 0;
+  }
+
+  table.main-layout {
+    width: 780px;
+    margin: 0 auto;
+    border-collapse: collapse;
+  }
+
+  .header-cell {
+    background: linear-gradient(to bottom, #8B0000, #4a0000);
+    text-align: center;
+    padding: 10px;
+    border: 3px ridge #CD853F;
+  }
+
+  .header-cell h1 {
+    font-family: 'Papyrus', 'Comic Sans MS', fantasy;
+    font-size: 42px;
+    color: #FF4500;
+    text-shadow: 2px 2px 4px #000, 0 0 20px #FF4500, 0 0 40px #FF4500;
+    margin: 5px 0;
+    letter-spacing: 6px;
+  }
+
+  .header-cell .tagline {
+    font-size: 14px;
+    color: #FFA500;
+    font-style: italic;
+  }
+
+  .nav-cell {
+    background-color: #3d0c0c;
+    text-align: center;
+    padding: 6px;
+    border: 2px ridge #CD853F;
+  }
+
+  .nav-cell a {
+    color: #FFD700;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 3px 10px;
+    font-family: 'Comic Sans MS', cursive;
+  }
+
+  .nav-cell a:hover {
+    color: #FF4500;
+    text-decoration: underline;
+  }
+
+  .nav-cell span.sep {
+    color: #8B4513;
+    margin: 0 4px;
+  }
+
+  .sidebar {
+    width: 180px;
+    background-color: #1a0505;
+    border-right: 2px ridge #CD853F;
+    padding: 10px;
+    vertical-align: top;
+    font-size: 12px;
+  }
+
+  .sidebar h3 {
+    color: #FF6347;
+    font-size: 14px;
+    border-bottom: 1px dashed #8B4513;
+    padding-bottom: 4px;
+    font-family: 'Comic Sans MS', cursive;
+  }
+
+  .content-cell {
+    background-color: #220808;
+    padding: 15px 20px;
+    vertical-align: top;
+    border: 1px solid #3d0c0c;
+  }
+
+  .content-cell h2 {
+    color: #FF6347;
+    font-size: 20px;
+    font-family: 'Papyrus', 'Comic Sans MS', fantasy;
+    border-bottom: 2px dotted #8B4513;
+    padding-bottom: 5px;
+  }
+
+  .content-cell p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #DEB887;
+    font-family: 'Comic Sans MS', cursive;
+  }
+
+  .fire-divider {
+    text-align: center;
+    font-size: 18px;
+    padding: 4px;
+    letter-spacing: 8px;
+    color: #FF4500;
+  }
+
+  .specials-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 12px;
+  }
+
+  .specials-table th {
+    background-color: #8B0000;
+    color: #FFD700;
+    padding: 6px 10px;
+    border: 1px solid #CD853F;
+    font-size: 13px;
+  }
+
+  .specials-table td {
+    padding: 5px 10px;
+    border: 1px solid #5a1a1a;
+    color: #DEB887;
+  }
+
+  .specials-table tr:nth-child(even) { background-color: #2a0a0a; }
+  .specials-table tr:nth-child(odd) { background-color: #1f0707; }
+
+  .marquee-bar {
+    background-color: #4a0000;
+    border-top: 2px ridge #CD853F;
+    border-bottom: 2px ridge #CD853F;
+    padding: 4px;
+    text-align: center;
+    font-size: 13px;
+    color: #FFA500;
+    font-family: 'Comic Sans MS', cursive;
+  }
+
+  .guestbook-box {
+    border: 2px inset #8B4513;
+    background-color: #1a0505;
+    padding: 10px;
+    margin: 10px 0;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 12px;
+  }
+
+  .guestbook-box input,
+  .guestbook-box textarea {
+    background-color: #0d0303;
+    border: 1px inset #8B4513;
+    color: #FFD700;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 11px;
+    padding: 3px;
+    width: 90%;
+    margin: 3px 0;
+  }
+
+  .guestbook-box textarea {
+    height: 50px;
+    resize: none;
+  }
+
+  .submit-btn {
+    background: linear-gradient(to bottom, #8B0000, #4a0000);
+    color: #FFD700;
+    border: 2px outset #CD853F;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 11px;
+    padding: 3px 14px;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+
+  .submit-btn:active { border-style: inset; }
+
+  .footer-cell {
+    background-color: #1a0505;
+    text-align: center;
+    padding: 10px;
+    border: 2px ridge #CD853F;
+    font-size: 10px;
+    color: #8B7355;
+    font-family: 'Comic Sans MS', cursive;
+  }
+
+  .counter-box {
+    display: inline-block;
+    background-color: #000;
+    border: 1px inset #555;
+    padding: 2px 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #00FF00;
+    margin: 5px 0;
+  }
+
+  .webring {
+    margin-top: 8px;
+    font-size: 10px;
+    color: #CD853F;
+  }
+
+  .webring a {
+    color: #DAA520;
+    text-decoration: underline;
+    font-size: 10px;
+  }
+
+  .stars { color: #FF4500; font-size: 11px; letter-spacing: 2px; }
+
+  .new-badge {
+    display: inline-block;
+    background-color: #FF0000;
+    color: #FFFFFF;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 1px 5px;
+    font-family: Arial, sans-serif;
+    vertical-align: super;
+  }
+
+  .midi-notice {
+    font-size: 10px;
+    color: #8B7355;
+    text-align: center;
+    padding: 3px;
+    font-style: italic;
+  }
+
+  hr.flame {
+    border: none;
+    border-top: 2px dashed #8B4513;
+    margin: 10px 0;
+  }
+</style>
+</head>
+<body>
+
+<table class="main-layout" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="2" class="header-cell">
+      <div style="font-size:22px;">🔥🔥🔥</div>
+      <h1>~ E M B E R ~</h1>
+      <div class="tagline">"Where Every Meal is Flame-Kissed!"</div>
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <div style="font-size:10px; color:#8B7355; margin-top:4px;">Est. 1997 &bull; Family Owned</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2" class="marquee-bar">
+      🔥 HAPPY HOUR Mon-Fri 4-6pm ~ Half Price Apps! 🔥 Call (555) 382-FIRE for Reservations 🔥
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2" class="nav-cell">
+      <a href="#">🏠 Home</a><span class="sep">|</span>
+      <a href="#">📋 Menu</a><span class="sep">|</span>
+      <a href="#">📍 Directions</a><span class="sep">|</span>
+      <a href="#">📞 Contact</a><span class="sep">|</span>
+      <a href="#">📝 Guestbook</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2" class="midi-notice">
+      (Best viewed in Internet Explorer 6.0 at 800x600)
+    </td>
+  </tr>
+
+  <tr>
+    <td class="sidebar">
+      <h3>🔥 Hours</h3>
+      <div style="color:#DEB887; font-size:11px;">
+        Mon-Thu: 11am - 9pm<br>
+        Fri-Sat: 11am - 10pm<br>
+        Sun: 12pm - 8pm
+      </div>
+
+      <h3>📍 Find Us</h3>
+      <div style="color:#DEB887; font-size:11px;">
+        742 Evergreen Terrace<br>
+        Springfield, USA 62704<br>
+        <a href="#" style="color:#FFD700; font-size:10px;">MapQuest directions</a>
+      </div>
+
+      <h3>🏆 Awards</h3>
+      <div style="color:#DAA520; font-size:11px;">
+        "Best Wings" - Springfield Gazette '03
+      </div>
+
+      <hr class="flame">
+
+      <div style="text-align:center; margin-top:8px;">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='31' viewBox='0 0 88 31'%3E%3Crect width='88' height='31' fill='%23000' rx='2'/%3E%3Ctext x='44' y='12' text-anchor='middle' fill='%2300FF00' font-family='monospace' font-size='7' font-weight='bold'%3EGeoCities%3C/text%3E%3Ctext x='44' y='22' text-anchor='middle' fill='%2300FF00' font-family='monospace' font-size='6'%3ENeighborhood%3C/text%3E%3C/svg%3E" alt="GeoCities" style="margin: 3px;"><br>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='31' viewBox='0 0 88 31'%3E%3Crect width='88' height='31' fill='%23000080' rx='2'/%3E%3Ctext x='44' y='18' text-anchor='middle' fill='%23FFFFFF' font-family='Arial' font-size='8' font-weight='bold'%3ENetscape Now!%3C/text%3E%3C/svg%3E" alt="Netscape Now!" style="margin: 3px;">
+      </div>
+    </td>
+
+    <td class="content-cell">
+      <h2>🔥 Welcome to Ember!</h2>
+      <p>
+        Springfield's home for flame-grilled steaks, fresh seafood, and our famous Ember Wings™. Come hungry, leave happy!
+      </p>
+
+      <div class="fire-divider">🔥🔥🔥🔥🔥🔥🔥</div>
+
+      <h2>📋 This Week's Specials <span class="new-badge">HOT!</span></h2>
+
+      <table class="specials-table">
+        <tr><th>Day</th><th>Special</th><th>Price</th></tr>
+        <tr><td>Monday</td><td>All-You-Can-Eat Riblets</td><td>$12.99</td></tr>
+        <tr><td>Tuesday</td><td>2-for-1 Ember Burgers</td><td>$9.99</td></tr>
+        <tr><td>Wednesday</td><td>Pasta Night</td><td>$10.99</td></tr>
+        <tr><td>Thursday</td><td>Steak &amp; Shrimp Combo</td><td>$16.99</td></tr>
+        <tr><td>Friday</td><td>Fish Fry Basket</td><td>$11.99</td></tr>
+        <tr><td>Sat-Sun</td><td>Brunch Buffet (10am-2pm)</td><td>$14.99</td></tr>
+      </table>
+
+      <p style="font-size:10px; color:#8B7355;">* Prices do not include tax. No substitutions.</p>
+
+      <div class="fire-divider">🔥🔥🔥🔥🔥🔥🔥</div>
+
+      <h2>📝 Sign Our Guestbook!</h2>
+      <div class="guestbook-box">
+        <input type="text" placeholder="Your Name"><br>
+        <input type="text" placeholder="Your Email"><br>
+        <textarea placeholder="Tell us about your visit!"></textarea><br>
+        <button class="submit-btn" onclick="alert('Thanks! Your entry will appear after approval by our webmaster Kevin.')">✉ Submit</button>
+      </div>
+
+      <h2>💬 Recent Entries</h2>
+      <div style="border:1px dashed #5a1a1a; padding:8px; margin:5px 0; font-size:11px;">
+        <b style="color:#FFD700;">SteakLover42</b> <span style="color:#8B7355;">- 03/15/2006</span><br>
+        <span style="color:#DEB887;">"Best ribs I ever had!! Tell Big Tony he's the man!"</span>
+      </div>
+      <div style="border:1px dashed #5a1a1a; padding:8px; margin:5px 0; font-size:11px;">
+        <b style="color:#FFD700;">DeborahM</b> <span style="color:#8B7355;">- 02/28/2006</span><br>
+        <span style="color:#DEB887;">"Had my daughter's sweet 16 here. Perfect!"</span>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2" class="footer-cell">
+      <div class="fire-divider" style="padding:0; margin-bottom:5px;">🔥🔥🔥🔥🔥</div>
+      <div style="font-size:11px; color:#FFD700;">🚧 Online ordering coming soon!! 🚧</div>
+      <br>
+      <div class="counter-box">Visitors: 004,782</div>
+      <br><br>
+      Copyright &copy; 1997-2006 Ember Restaurant.<br>
+      Site by Kevin (Big Tony's nephew) using Microsoft FrontPage™<br>
+      Last updated: March 15, 2006
+
+      <div class="webring">
+        &lt;&lt; <a href="#">Prev</a> |
+        <a href="#">Springfield Restaurant WebRing</a> |
+        <a href="#">Next</a> &gt;&gt;
+      </div>
+
+      <div style="font-size:9px; color:#5a3a2a; margin-top:6px;">
+        Email: kevin_webmaster1997@hotmail.com
+      </div>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

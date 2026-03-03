@@ -1,9 +1,7 @@
 import AnimatedText from '../components/ui/AnimatedText'
 import FadeInSection from '../components/ui/FadeInSection'
 import ImageReveal from '../components/ui/ImageReveal'
-import TeamMemberCard from '../components/ui/TeamMember'
 import Button from '../components/ui/Button'
-import { team } from '../data/team'
 
 export default function AboutPage() {
   return (
@@ -110,32 +108,6 @@ export default function AboutPage() {
                   <p className="text-text-muted leading-relaxed">{value.desc}</p>
                 </div>
               </FadeInSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="py-32 px-6 md:px-10">
-        <div className="max-w-7xl mx-auto">
-          <FadeInSection>
-            <span className="text-xs uppercase tracking-[0.3em] text-accent-green font-semibold">
-              The Team
-            </span>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mt-4 mb-16">
-              Meet the people behind the pixels
-            </h2>
-          </FadeInSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {team.map((member, i) => (
-              <TeamMemberCard
-                key={member.name}
-                name={member.name}
-                role={member.role}
-                image={member.image}
-                index={i}
-              />
             ))}
           </div>
         </div>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Swift Towing - Reliable Towing Services</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.header {
+  text-align: center;
+  padding: 30px 0 10px;
+  border-bottom: 2px solid #000;
+}
+.header h1 {
+  font-size: 32px;
+  margin: 0;
+  letter-spacing: 2px;
+  font-family: Georgia, serif;
+}
+.header .tagline {
+  font-style: italic;
+  color: #444;
+  margin-top: 4px;
+  font-size: 13px;
+}
+.topbar {
+  background: #FFFF00;
+  color: #000;
+  text-align: center;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 12px;
+}
+nav {
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  font-size: 12px;
+}
+nav a {
+  color: #0000EE;
+  text-decoration: underline;
+  margin: 0 8px;
+}
+nav a:visited {
+  color: #551A8B;
+}
+nav a:hover {
+  color: #FF0000;
+}
+.content {
+  display: flex;
+  gap: 24px;
+  padding: 20px 0;
+}
+.sidebar {
+  width: 190px;
+  flex-shrink: 0;
+  border-right: 1px solid #ddd;
+  padding-right: 20px;
+  font-size: 12px;
+}
+.sidebar h3 {
+  font-size: 13px;
+  margin: 16px 0 8px;
+  text-decoration: underline;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar ul li {
+  margin-bottom: 4px;
+}
+.sidebar ul li a {
+  color: #0000EE;
+  text-decoration: none;
+}
+.sidebar ul li a:hover {
+  text-decoration: underline;
+}
+.sidebar ul li::before {
+  content: "\00BB\0020";
+}
+.sidebar .phone-box {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  margin-top: 16px;
+}
+.sidebar .phone-box .number {
+  font-size: 16px;
+  font-weight: bold;
+  color: #CC0000;
+}
+.main {
+  flex: 1;
+}
+.main h2 {
+  font-size: 18px;
+  font-family: Georgia, serif;
+  margin-top: 0;
+}
+.cta-bar {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 12px 16px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.cta-bar .number {
+  color: #CC0000;
+  font-weight: bold;
+  font-size: 18px;
+}
+.services-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+.services-table td {
+  padding: 4px 8px;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+.services-table td:first-child {
+  width: 8px;
+}
+.testimonial {
+  border-left: 3px solid #ccc;
+  padding-left: 12px;
+  margin: 12px 0;
+  font-style: italic;
+  color: #333;
+}
+.testimonial .author {
+  font-style: normal;
+  font-size: 11px;
+  color: #666;
+}
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
+.footer {
+  border-top: 2px solid #000;
+  text-align: center;
+  padding: 16px 0;
+  font-size: 11px;
+  color: #666;
+}
+.footer a {
+  color: #0000EE;
+  font-size: 11px;
+}
+.badge-row {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 10px;
+  color: #999;
+}
+.badge-row span {
+  border: 1px solid #ccc;
+  padding: 4px 10px;
+  margin: 0 4px;
+  display: inline-block;
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  background: #fafafa;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  &#9733; SPRING SPECIAL: 10% OFF ALL TOWS OVER 50 MILES &mdash; CALL TODAY! &#9733;
+</div>
+
+<div class="wrapper">
+
+  <div class="header">
+    <h1>SWIFT TOWING</h1>
+    <div class="tagline">Reliable Towing &amp; Roadside Assistance Since 1997</div>
+  </div>
+
+  <nav>
+    <a href="#">Home</a> |
+    <a href="#">About Us</a> |
+    <a href="#">Services</a> |
+    <a href="#">Service Area</a> |
+    <a href="#">Testimonials</a> |
+    <a href="#">Contact</a>
+  </nav>
+
+  <div class="content">
+
+    <div class="sidebar">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="#">Request a Tow</a></li>
+        <li><a href="#">Get a Free Quote</a></li>
+        <li><a href="#">Roadside Help</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+
+      <div class="phone-box">
+        Call Us 24/7<br>
+        <span class="number">(555) 867-5309</span><br>
+        <span style="font-size:10px; color:#666;">Fax: (555) 867-5310</span>
+      </div>
+
+      <h3>Business Hours</h3>
+      Open <b>24 Hours</b><br>
+      7 Days a Week<br>
+      365 Days a Year
+
+      <h3>Email Us</h3>
+      <a href="mailto:info@swifttowing.com">info@swifttowing.com</a>
+
+      <div class="badge-row">
+        <br>
+        <span>BBB A+ Rated</span>
+        <br><br>
+        <span>Licensed &amp; Insured</span>
+      </div>
+    </div>
+
+    <div class="main">
+
+      <div class="cta-bar">
+        Need a tow? Call us now: <span class="number">(555) 867-5309</span><br>
+        <span style="font-size: 11px;">Average response time: 30 minutes or less!</span>
+      </div>
+
+      <h2>Welcome to Swift Towing</h2>
+
+      <p>Swift Towing has been serving the greater metropolitan area since 1997. We are a family-owned and operated towing company dedicated to providing fast, reliable, and affordable towing and roadside assistance services.</p>
+
+      <p>Whether you're stranded on the highway at 3am or need a vehicle transported across the state, our team of experienced professionals is ready to help.</p>
+
+      <h2>Our Services</h2>
+
+      <table class="services-table">
+        <tr><td>&bull;</td><td>Local and Long Distance Towing</td></tr>
+        <tr><td>&bull;</td><td>Flatbed Towing</td></tr>
+        <tr><td>&bull;</td><td>Motorcycle Towing</td></tr>
+        <tr><td>&bull;</td><td>Accident Recovery</td></tr>
+        <tr><td>&bull;</td><td>Jump Starts</td></tr>
+        <tr><td>&bull;</td><td>Tire Changes</td></tr>
+        <tr><td>&bull;</td><td>Fuel Delivery</td></tr>
+        <tr><td>&bull;</td><td>Lockout Service</td></tr>
+        <tr><td>&bull;</td><td>Winching &amp; Extraction</td></tr>
+        <tr><td>&bull;</td><td>Junk Car Removal</td></tr>
+      </table>
+
+      <h2>Why Choose Us?</h2>
+      <p>
+        Fast response times (usually 30 minutes or less). Competitive, transparent pricing with no hidden fees. All drivers are fully licensed and insured. FREE estimates on all services.
+      </p>
+
+      <hr>
+
+      <h2>What Our Customers Say</h2>
+
+      <div class="testimonial">
+        "Swift Towing came out at 2am and had my car on the flatbed in no time. Very professional."
+        <div class="author">&mdash; Steve M.</div>
+      </div>
+
+      <div class="testimonial">
+        "Best towing company in town. They don't try to rip you off like the other guys."
+        <div class="author">&mdash; Jennifer K.</div>
+      </div>
+
+      <div class="testimonial">
+        "Blew a tire on the highway and they were there in 20 minutes. Saved my vacation!"
+        <div class="author">&mdash; David R.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 1997&ndash;2009 Swift Towing. All Rights Reserved.<br>
+    <a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Terms of Service</a> &nbsp;|&nbsp; <a href="#">Sitemap</a><br>
+    Site last updated: November 12, 2009
+  </div>
+
+</div>
+
+</body>
+</html>

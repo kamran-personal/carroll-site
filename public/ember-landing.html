@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ember — Fire-Kissed Flavor</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --amber: #F0B840;
+    --deep-orange: #E8742A;
+    --cream: #FFF4E0;
+    --charcoal: #1A1108;
+    --rust: #B8390E;
+    --warm-white: #FEF9F0;
+    --burnt: #8B2500;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ANNOUNCEMENT BAR */
+  .announcement {
+    background: var(--charcoal);
+    color: var(--amber);
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .announcement a {
+    color: var(--cream);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    margin-left: 6px;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 48px;
+    background: var(--cream);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--charcoal);
+  }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-left a {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--charcoal);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+  }
+  .nav-left a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--deep-orange);
+    transition: width 0.3s ease;
+  }
+  .nav-left a:hover::after { width: 100%; }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 40px;
+    font-style: italic;
+    color: var(--deep-orange);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    pointer-events: none;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .nav-right a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+  .nav-btn {
+    background: var(--deep-orange);
+    color: var(--cream) !important;
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, transform 0.2s;
+    cursor: not-allowed;
+    border: none;
+    opacity: 0.6;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--amber);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-headline {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: clamp(40px, 7vw, 110px);
+    color: var(--charcoal);
+    text-align: center;
+    padding: 48px 40px 0;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    white-space: nowrap;
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 0.8s ease-out;
+  }
+  .hero-headline .dot {
+    color: var(--charcoal);
+  }
+
+  .hero-image-wrap {
+    position: relative;
+    width: 90%;
+    max-width: 1100px;
+    margin: 32px auto 0;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: var(--charcoal);
+    animation: fadeUp 1s ease-out 0.2s both;
+  }
+  .hero-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.92;
+  }
+
+  .hero-cta-float {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    background: var(--amber);
+    color: var(--charcoal);
+    padding: 16px 36px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: 3px solid var(--charcoal);
+    cursor: not-allowed;
+    opacity: 0.6;
+    box-shadow: 4px 4px 0 var(--charcoal);
+  }
+
+  .hero-bottom {
+    padding: 40px 48px 48px;
+    background: var(--amber);
+  }
+
+  /* TAGLINE */
+  .tagline {
+    text-align: center;
+    padding: 64px 40px;
+    background: var(--cream);
+    border-top: 2px solid var(--charcoal);
+  }
+  .tagline p {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(18px, 2.8vw, 28px);
+    color: var(--charcoal);
+    max-width: 780px;
+    margin: 0 auto;
+    line-height: 1.5;
+    letter-spacing: -0.3px;
+    font-weight: 400;
+  }
+  .tagline .highlight {
+    color: var(--deep-orange);
+    font-style: italic;
+  }
+
+  /* CATEGORY CARDS */
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--charcoal);
+  }
+  .cat-card {
+    padding: 48px 40px;
+    text-align: center;
+    border-right: 2px solid var(--charcoal);
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card:last-child { border-right: none; }
+  .cat-card:hover { background: var(--amber); }
+
+  .cat-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .cat-card:hover .cat-icon {
+    transform: scale(1.2) rotate(-5deg);
+  }
+  .cat-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 28px;
+    margin-bottom: 8px;
+    color: var(--charcoal);
+  }
+  .cat-card p {
+    font-size: 14px;
+    color: var(--charcoal);
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+
+  /* FEATURE BANNER */
+  .feature-banner {
+    background: var(--charcoal);
+    color: var(--cream);
+    display: flex;
+    align-items: stretch;
+    border-top: 2px solid var(--charcoal);
+    min-height: 420px;
+  }
+  .feature-text {
+    flex: 1;
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .feature-text .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--amber);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .feature-text h2 {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+  }
+  .feature-text p {
+    font-size: 16px;
+    line-height: 1.7;
+    opacity: 0.75;
+    max-width: 440px;
+    margin-bottom: 32px;
+  }
+  .feature-btn {
+    display: inline-block;
+    background: var(--deep-orange);
+    color: var(--cream);
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    width: fit-content;
+    border: none;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .feature-image {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    border-left: 2px solid rgba(255,255,255,0.08);
+    background: linear-gradient(135deg, rgba(232,116,42,0.2) 0%, rgba(26,17,8,0.9) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.2);
+    font-size: 48px;
+  }
+  .feature-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* MARQUEE */
+  .marquee-strip {
+    background: var(--deep-orange);
+    padding: 16px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 2px solid var(--charcoal);
+    border-bottom: 2px solid var(--charcoal);
+  }
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-inner span {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--cream);
+    margin-right: 48px;
+  }
+  .marquee-inner .sep {
+    color: var(--amber);
+    margin: 0 24px;
+    font-style: normal;
+  }
+
+  /* TESTIMONIAL */
+  .testimonial {
+    text-align: center;
+    padding: 80px 40px;
+    background: var(--cream);
+  }
+  .testimonial blockquote {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: clamp(24px, 3.5vw, 40px);
+    color: var(--charcoal);
+    max-width: 800px;
+    margin: 0 auto 24px;
+    line-height: 1.35;
+    letter-spacing: -0.5px;
+  }
+  .testimonial cite {
+    font-family: 'Outfit', sans-serif;
+    font-style: normal;
+    font-size: 14px;
+    color: var(--deep-orange);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 56px 48px 32px;
+    border-top: 2px solid var(--charcoal);
+    pointer-events: none;
+  }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 48px;
+  }
+  .footer-brand .logo { font-size: 40px; }
+  .footer-brand p {
+    font-size: 14px;
+    opacity: 0.5;
+    margin-top: 8px;
+    max-width: 280px;
+    line-height: 1.6;
+  }
+  .footer-links {
+    display: flex;
+    gap: 64px;
+  }
+  .footer-col h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--amber);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .footer-col a {
+    display: block;
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 14px;
+    opacity: 0.6;
+    margin-bottom: 10px;
+  }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    opacity: 0.4;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column;
+      padding: 12px 24px;
+      gap: 16px;
+    }
+    .nav-left, .nav-right {
+      width: 100%;
+      justify-content: center;
+      gap: 16px;
+    }
+    .categories {
+      grid-template-columns: 1fr;
+    }
+    .cat-card {
+      border-right: none;
+      border-bottom: 2px solid var(--charcoal);
+    }
+    .feature-banner {
+      flex-direction: column;
+      min-height: auto;
+    }
+    .feature-image {
+      min-height: 300px;
+      border-left: none;
+      border-top: 2px solid rgba(255,255,255,0.08);
+    }
+    .footer-top {
+      flex-direction: column;
+      gap: 32px;
+    }
+    .footer-links {
+      flex-direction: column;
+      gap: 32px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announcement">
+  🔥 NEW: Smoky Habanero Wings just dropped.
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a href="#">Menus</a>
+    <a href="#">Sauces</a>
+    <a href="#">Catering</a>
+  </div>
+  <a href="#" class="logo">Ember</a>
+  <div class="nav-right">
+    <a href="#">OUR STORY</a>
+    <a href="#">LOCATIONS</a>
+    <button class="nav-btn" disabled>Order Now</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="hero-headline">
+    COOKED<span class="dot">.</span> OVER<span class="dot">.</span> FLAME<span class="dot">.</span>
+  </h1>
+  <div class="hero-image-wrap">
+    <img src="/images/ember/rawImage.jpg" alt="Ember restaurant preview">
+    <button class="hero-cta-float" disabled>Watch Video</button>
+  </div>
+  <div class="hero-bottom"></div>
+</section>
+
+<!-- TAGLINE -->
+<section class="tagline">
+  <p>From the smoky depths of our kitchen to your table, every bite is a <span class="highlight">celebration of fire</span> and flavor that can't be found anywhere else.</p>
+</section>
+
+<!-- CATEGORY CARDS -->
+<section class="categories">
+  <div class="cat-card">
+    <span class="cat-icon">🍗</span>
+    <h3>Wings</h3>
+    <p>Crispy, saucy perfection with our signature flame-kissed seasoning</p>
+  </div>
+  <div class="cat-card">
+    <span class="cat-icon">🔥</span>
+    <h3>Sauces</h3>
+    <p>Hand-crafted blends that bring heat and complexity to every dish</p>
+  </div>
+  <div class="cat-card">
+    <span class="cat-icon">🥘</span>
+    <h3>Platters</h3>
+    <p>Shareable feasts designed for gatherings and celebrations</p>
+  </div>
+</section>
+
+<!-- FEATURE BANNER -->
+<section class="feature-banner">
+  <div class="feature-text">
+    <div class="label">Experience</div>
+    <h2>Ember Dining at Its Finest</h2>
+    <p>Step into our restaurant where fire meets craft. Every detail, from our open-flame kitchen to hand-selected ingredients, is designed to deliver an unforgettable culinary experience.</p>
+    <button class="feature-btn" disabled>Reserve a Table</button>
+  </div>
+  <div class="feature-image">
+    <img src="/images/ember/chicken+wings.webp" alt="Restaurant dining experience">
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Award-Winning Flavors</span>
+    <span class="sep">•</span>
+    <span>Farm-to-Table Ingredients</span>
+    <span class="sep">•</span>
+    <span>Signature Hot Sauces</span>
+    <span class="sep">•</span>
+    <span>Award-Winning Flavors</span>
+    <span class="sep">•</span>
+    <span>Farm-to-Table Ingredients</span>
+    <span class="sep">•</span>
+    <span>Signature Hot Sauces</span>
+  </div>
+</div>
+
+<!-- BEVERAGES SECTION -->
+<section style="display: flex; align-items: stretch; border-top: 2px solid var(--charcoal); min-height: 380px;">
+  <div style="flex: 1; overflow: hidden; background: var(--charcoal);">
+    <img src="/images/ember/MW-CI143_pfbeer_MG_20140616091817.jpg" alt="Craft Beverages">
+  </div>
+  <div style="flex: 1; background: var(--charcoal); color: var(--cream); padding: 64px 56px; display: flex; flex-direction: column; justify-content: center;">
+    <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--amber); font-weight: 600; margin-bottom: 20px;">Beverages</div>
+    <h2 style="font-family: 'DM Serif Display', serif; font-style: italic; font-size: clamp(36px, 4.5vw, 56px); line-height: 1.05; margin-bottom: 20px; letter-spacing: -1px;">Craft Drinks to Complement Your Meal</h2>
+    <p style="font-size: 16px; line-height: 1.7; opacity: 0.75; max-width: 440px; margin-bottom: 32px;">Carefully curated beers, signature cocktails, and refreshing non-alcoholic options that perfectly pair with our flame-kissed cuisine.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial">
+  <blockquote>"Every flame tells a story. Every dish is a masterpiece. Ember doesn't just serve food—it serves passion."</blockquote>
+  <cite>– James Chen, Food Critic</cite>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">Ember</a>
+      <p>Fire-kissed flavor since 2020. We believe in the power of flame to transform simple ingredients into extraordinary experiences.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">Our Story</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <a href="#">Wings</a>
+        <a href="#">Sauces</a>
+        <a href="#">Platters</a>
+        <a href="#">Catering</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Newsletter</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2024 Ember. All rights reserved.</span>
+    <span>Privacy Policy • Terms</span>
+  </div>
+</footer>
+
+</body>
+</html>
